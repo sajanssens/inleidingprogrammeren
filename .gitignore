@@ -166,3 +166,7 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.gitignore.io/api/java,maven,eclipse,netbeans,intellij
+
+
+test.txt
+
