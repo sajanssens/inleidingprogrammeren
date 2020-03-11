@@ -59,4 +59,45 @@ public class VariabelenTest {
 
     }
 
+    public void testBoolean() {
+        boolean executeTest;
+        executeTest = false;
+        boolean fiveLowerThanOne = (5 < 1);
+
+        executeTest = true;  // FIX
+
+        System.out.println(fiveLowerThanOne);
+    }
+
+    @Test
+    void charTest() {
+        char a = 'a';
+        char b = 'b';
+        char c = 'c';
+
+        long j = 9L;
+
+        // verhoogEnPrint(j);
+
+        String i = 3 + "=text";
+
+        System.out.println(a + 0);
+        System.out.println(b + 0);
+        System.out.println(i);
+    }
+
+    @Test
+    void boxing() {
+        Long i = 8L;
+        IntWrapper iRef = new IntWrapper(8);
+
+        verhoogEnPrint(iRef);
+        verhoogEnPrint(iRef);
+        verhoogEnPrint(iRef);
+    }
+
+    void verhoogEnPrint(IntWrapper n) {
+        n.value = n.value + 1;
+        System.out.println(n.value);
+    }
 }

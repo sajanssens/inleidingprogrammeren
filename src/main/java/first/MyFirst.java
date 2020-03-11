@@ -7,8 +7,5 @@ public class MyFirst {
         System.out.println(bericht);
     }
 
-    static String geefBericht() {
-        return "Hello world!";
-    }
-
+    static String geefBericht() { return "Hello world!"; }
 }
