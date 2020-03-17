@@ -13,10 +13,6 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <build>
-
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -43,6 +39,20 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <!-- <plugins>
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-compiler-plugin</artifactId>
+                 <version>3.8.1</version>
+                 <configuration>
+                     <release>13</release>
+                     <compilerArgs>&#45;&#45;enable-preview</compilerArgs>
+                 </configuration>
+             </plugin>
+         </plugins>-->
+    </build>
 
 
 </project>

@@ -2,6 +2,7 @@ package first;
 
 import org.junit.jupiter.api.Test;
 
+import static first.Integer.box;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VariabelenTest {
@@ -25,8 +26,8 @@ public class VariabelenTest {
         aantalReizigersInDeTrein = 143;
         reizigersPerBak = (char) ((aantalReizigersInDeTrein - aantalPersoneelsledenPerTrein) / 4); // + - / *
 
-        int maxValue = Integer.MAX_VALUE;
-        int minValue = Integer.MIN_VALUE;
+        int maxValue = java.lang.Integer.MAX_VALUE;
+        int minValue = java.lang.Integer.MIN_VALUE;
 
         long coronaBeestjesPerReiziger = 200_000_000_000L;
         long aantalCoronaBeestjesPerTrein = coronaBeestjesPerReiziger * aantalReizigersInDeTrein;
@@ -48,17 +49,22 @@ public class VariabelenTest {
         int aantalMeeeters = 4;
         double pp = gemaakteKostenMaaltijd / aantalMeeeters;
 
-        boolean voorwaarde = pp > 0; // true or false
+        boolean voorwaarde1 = pp > 0; // true or false
+        // boolean voorwaarde2 = aantalMeeeters < 10; // true or false
 
-        if (voorwaarde == true) {
+        if ((pp > 0 && aantalMeeeters < 20) || gemaakteKostenMaaltijd <= 100) {
             // then
             System.out.println(pp);
         } else {
             System.out.println("Bedrag pp mag niet negatief zijn.");
+
         }
+
+        aantalMeeeters -= 2;
 
     }
 
+    @Test
     public void testBoolean() {
         boolean executeTest;
         executeTest = false;
@@ -66,7 +72,18 @@ public class VariabelenTest {
 
         executeTest = true;  // FIX
 
-        System.out.println(fiveLowerThanOne);
+        byte b = (byte) 0b1111_0000;
+        byte c = (byte) ~b; // 0000_1111
+        byte d = (byte) (b & c); // 0000_0000
+        byte e = (byte) (b | c); // 1111_1111
+
+        int j = -9;
+        int k = +j;
+
+        System.out.println(d);
+        System.out.println(e);
+
+        System.out.println(!fiveLowerThanOne);
     }
 
     @Test
@@ -88,16 +105,54 @@ public class VariabelenTest {
 
     @Test
     void boxing() {
-        Long i = 8L;
-        IntWrapper iRef = new IntWrapper(8);
+        Integer iRef = box(8);
+        java.lang.Number i = 7;
+
+        Class<? extends Number> aClass = i.getClass();
+        if (aClass == Number.class) {
+            System.out.println("i is een Number");
+        }
+
+        if (i instanceof java.lang.Integer) {
+            java.lang.Integer n = (java.lang.Integer) i;
+            n = n + 1;
+        }
 
         verhoogEnPrint(iRef);
         verhoogEnPrint(iRef);
         verhoogEnPrint(iRef);
     }
 
-    void verhoogEnPrint(IntWrapper n) {
+    @Test
+    void equalsOrIsIs() {
+        Client c1 = new Client();
+        Client c2 = new Client();
+        c1.name = "Bram";
+        c2.name = "Bram";
+
+        String s1 = "Bram";
+        String s2 = "bram";
+
+        if (c1.equals(c2)) {
+            System.out.println("Ze zijn gelijk!");
+        } else {
+            System.out.println("Ze zijn niet gelijk!");
+        }
+
+        if (s1.equalsIgnoreCase(s2)) {
+            System.out.println("Ze zijn gelijk 2!");
+        } else {
+            System.out.println("Ze zijn niet gelijk 2!");
+        }
+
+    }
+
+    void verhoogEnPrint(Integer n) {
         n.value = n.value + 1;
         System.out.println(n.value);
     }
+}
+
+class Client {
+    public String name;
 }
