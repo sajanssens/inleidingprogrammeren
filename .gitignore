@@ -170,3 +170,4 @@ nbdist/
 
 test.txt
 
+/target/classes/META-INF/inleidingprogrammeren.kotlin_module
