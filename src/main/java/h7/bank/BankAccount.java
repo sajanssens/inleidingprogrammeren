@@ -26,10 +26,14 @@ public class BankAccount {
     }
 
     public BigDecimal calculateInterestOneYear() {
-        return BigDecimal.ZERO;
+        return balance.multiply(BigDecimal.valueOf(interestRate / 100));
     }
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public String getNumber() {
+        return number;
     }
 }
