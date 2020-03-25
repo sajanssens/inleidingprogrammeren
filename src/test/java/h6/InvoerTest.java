@@ -2,14 +2,22 @@ package h6;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InvoerTest {
 
+    Invoer target = new Invoer();
+
     @Test
     void testBepaalLengte() {
-        Invoer target = new Invoer();
         int bram = target.bepaalLengte("Bram");
         assertEquals(bram, 4);
+    }
+
+    @Test
+    void testRun() {
+        Invoer target = new Invoer();
+        target.run();
+        // assert??
     }
 }
