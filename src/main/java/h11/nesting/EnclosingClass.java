@@ -5,6 +5,7 @@ import lombok.Data;
 
 public class EnclosingClass {
     private int count = 10;
+    private int countOuter = 20;
     private static String data = "abc";
 
     public void doeIets() {
@@ -13,13 +14,18 @@ public class EnclosingClass {
         System.out.println(count);
     }
 
+    // Behaves like other members (fields and methods) of EnclosingClass, so
+    // can access EnclosingClass's state
     public class InnerClass {
         private int count = 5;
 
         public void doeIets() {
-            EnclosingClass.data.toUpperCase();    //ok; data is static
+            String s = EnclosingClass.data.toUpperCase();//ok; data is static
             int count = 1;
 
+            System.out.println(countOuter); // ok; accessible
+
+            // shadowing
             System.out.println(count);
             System.out.println(this.count);
             System.out.println(EnclosingClass.this.count); // strange notation!
@@ -47,14 +53,23 @@ public class EnclosingClass {
         }
     }
 
+    // Behaves just like a non-nested class outside EnclosingClass, so
+    // can NOT access EnclosingClass's state.
     public static class StaticNestedClass {
-        static int sta = 9;
-        int notSta = 90;
+        static int countStatic = 9;
+        int count = 5;
 
-        public StaticNestedClass() {
-            // count++;               //not accessible here
-            EnclosingClass.data.toUpperCase();    //ok; data is static
-            System.out.println(sta);
+        public void doeIets() {
+            String s = EnclosingClass.data.toUpperCase(); //ok; data is static
+            int count = 1;
+
+            System.out.println(countStatic); //ok; data is static
+            // System.out.println(countOuter); // NOT accessible!
+
+            // shadowing not an issue here
+            System.out.println(count);
+            System.out.println(this.count);
+            // System.out.println(EnclosingClass.this.count); // NOT accessible!
         }
 
     }

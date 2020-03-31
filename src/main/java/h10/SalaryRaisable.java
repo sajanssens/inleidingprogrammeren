@@ -7,7 +7,7 @@ public interface SalaryRaisable {
     public static final int amount = 10;
 
     // since java 8
-    default void cutSalary(int amount) {
+    default long cutSalary(int amount) {
         // doe iets defaults met amount
         throw new RuntimeException("Not implemented...");
     }
