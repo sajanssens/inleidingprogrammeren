@@ -168,6 +168,4 @@ nbdist/
 # End of https://www.gitignore.io/api/java,maven,eclipse,netbeans,intellij
 
 
-test.txt
-
-/target/classes/META-INF/inleidingprogrammeren.kotlin_module
+/target/*
