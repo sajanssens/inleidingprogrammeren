@@ -22,11 +22,13 @@ class SalarisadministratieTest {
         e = new PermEmployee("Maartje", 10);
         target.printSalary(e);
 
-        Employee.geefMaarWat();
-        TempEmployee.geefMaarWat();
+        int i1 = Employee.geefMaarWat();
+        int i2 = TempEmployee.geefMaarWat();
+        assertThat(i1).isEqualTo(42);
+        assertThat(i2).isEqualTo(43);
 
         Employee emp = new TempEmployee("Piet", 50);
-        emp.geefMaarWat();
+        emp.geefMaarWat(); // hiding
     }
 
     @Test
