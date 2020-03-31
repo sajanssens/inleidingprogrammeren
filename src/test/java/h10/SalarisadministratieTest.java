@@ -3,6 +3,7 @@ package h10;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 class SalarisadministratieTest {
 
@@ -47,5 +48,13 @@ class SalarisadministratieTest {
         target.raiseSalary(robot);
         int robotSalary = robot.getSalary();
         assertThat(robotSalary).isEqualTo(220);
+    }
+
+    @Test
+    void testCutSalary() {
+        PermEmployee maartje = new PermEmployee("Maartje", 10);
+        maartje.setSalary(2500);
+
+        assertThrows(RuntimeException.class, () -> maartje.cutSalary(90));
     }
 }
