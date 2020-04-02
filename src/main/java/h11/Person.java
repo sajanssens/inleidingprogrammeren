@@ -12,7 +12,7 @@ import java.awt.*;
 @Builder
 public class Person {
 
-    private String name;
+    private final String name;
     private int age;
     private Gender gender;
     private int schoenmaat;
