@@ -13,6 +13,7 @@ public class Variance {
         coVariant(new ArrayList<Float>());
         // not allowed: T's super Number
         // coVariant(new ArrayList<Object>());
+        // coVariant(new ArrayList<String>());
 
         // allowed: T's super Number and Number itself
         contraVariant(new ArrayList<Number>());
@@ -39,7 +40,7 @@ public class Variance {
         //   list.add(new Object());
     }
 
-    // Contra, since provided list type vs. wanted list type moves against the content type, i.e. Integer < Number, but List<Integer> !< List<Number>
+    // Contra, since provided list type vs. wanted list type moves against the content type, i.e. Integer < Number, but List<Integer> > List<Number>
     static void contraVariant(List<? super Number> list) {
         Object object = list.get(0); // can be anything...
 
@@ -52,7 +53,7 @@ public class Variance {
 
         // disallowed are T's !extends Number, since the list instance can contain anything
         // list.add(new Object());
-        //list.add("0");
+        // list.add("0");
     }
 
     static void coVariantForObject(List<?> list) {
