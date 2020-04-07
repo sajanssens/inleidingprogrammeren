@@ -3,11 +3,11 @@ package h13;
 import h11.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GenericsDemo {
 
     // Generic Types
-
     public static void main(String[] args) {
         GenericsDemo demo = new GenericsDemo();
         ArrayList<String> tekstjes = demo.maakLijst();
@@ -39,6 +39,36 @@ public class GenericsDemo {
         PersonContainer<Person> personPersonContainer = demo.maakPersoonContainer(bram);
 
         PersonContainer<Person> personPersonContainer1 = new PersonContainer<>(bram);
+
+        primitivesAreNotAllowedAsGenericType();
+
+    }
+
+    @SuppressWarnings("all")
+    private static void primitivesAreNotAllowedAsGenericType() {
+        Person bram = Person.builder().name("Bram").build();
+
+        // source: https://stackoverflow.com/questions/2721546/why-dont-java-generics-support-primitive-types
+
+        // not allowed:
+        // List<int> listOfInt;
+
+        // because this:
+        List<Person> list = new ArrayList<>();
+        list.add(bram);
+        Person a = list.get(0);
+
+        // gets turned into (roughly):
+        List listCompiled = new ArrayList();
+        list.add(bram);
+        Person b = (Person) list.get(0); // list.get returns Object
+
+        // and so this:
+        List listInt = new ArrayList();
+        listInt.add(1);
+
+        // won't compile:
+        // int a = (int) list.get(0); // list.get returns Object, can't be cast to primitive
     }
 
     private ArrayList<String> maakLijst() {
