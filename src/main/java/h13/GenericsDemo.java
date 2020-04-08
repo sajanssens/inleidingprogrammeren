@@ -60,14 +60,13 @@ public class GenericsDemo {
 
         // gets turned into (roughly):
         List listCompiled = new ArrayList();
-        list.add(bram);
-        Person b = (Person) list.get(0); // list.get returns Object
+        listCompiled.add(bram);
+        Person b = (Person) listCompiled.get(0); // list.get returns Object
 
-        // and so this:
+        // and so this...:
         List listInt = new ArrayList();
         listInt.add(1);
-
-        // won't compile:
+        // ... won't compile:
         // int a = (int) list.get(0); // list.get returns Object, can't be cast to primitive
     }
 
