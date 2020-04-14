@@ -2,7 +2,7 @@ package h13.hashcode;
 
 import java.util.Objects;
 
-public class Person {
+public class Person implements Comparable<Person> {
 
     String name;
     int age;
@@ -22,8 +22,28 @@ public class Person {
 
     @Override public int hashCode() {
         // return super.hashCode(); // returns the 'address' of this object; unique for each instance
-        // return 1; // every person has the same hashcode: functionally ok, but no performance benefits in hash tables since every person wil be stored under the same key
-        return Objects.hash(name, age); // unique hashcode for each name/age combination; if more specific than equals, two equal persons can get different has codes; that's not good, since they will be added to a hashset though they are equal...
+        return 1; // every person has the same hashcode: functionally ok, but no performance benefits in hash tables since every person wil be stored under the same key
+        // return Objects.hash(name, age); // unique hashcode for each name/age combination; if more specific than equals, two equal persons can get different has codes; that's not good, since they will be added to a hashset though they are equal...
 
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return this.age - o.age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

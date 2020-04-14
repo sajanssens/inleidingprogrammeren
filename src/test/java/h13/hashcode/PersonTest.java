@@ -21,6 +21,7 @@ class PersonTest {
         assertTrue(p0 != p1);
         assertEquals(p0, p0);
         assertEquals(p0, p1);
+        assertEquals(p1, p2);
 
         System.out.println(p0);
         System.out.println(p1);
@@ -30,11 +31,13 @@ class PersonTest {
         boolean add11 = set.add(p1);
         boolean add12 = set.add(p1);
         boolean add2 = set.add(p2);
+        boolean bram2 = set.add(new Person("Bram2", 13));
 
         System.out.println(add0);
         System.out.println(add11);
         System.out.println(add12);
         System.out.println(add2);
+        System.out.println(bram2);
 
         for (Person person : set) {
             System.out.println(person);
@@ -46,14 +49,6 @@ class PersonTest {
         boolean contains1 = set.contains(p1);
         System.out.println(contains0);
         System.out.println(contains1);
-
-        for (Person person : set) {
-            System.out.println(person);
-        }
-
-        set.remove(p2);
-        set.removeAll(set);
-        set.clear();
 
         Map<Integer, Person> integerPersonMap = new HashMap<>();
         integerPersonMap.put(0, p0);

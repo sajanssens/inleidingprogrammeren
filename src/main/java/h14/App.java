@@ -1,20 +1,22 @@
 package h14;
 
-import h11.Person;
+import h13.hashcode.Person;
 
 import java.util.*;
 
 import static java.lang.Integer.compare;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 
 public class App {
 
     public static void main(String[] args) {
         List<Integer> getallen = new ArrayList<>();
-        getallen.add(0);
-        getallen.add(1);
         getallen.add(2);
-        getallen.add(3);
+        getallen.add(0);
         getallen.add(4);
+        getallen.add(1);
+        getallen.add(3);
 
         // Zoeken:
         // O(1) // constant, altijd even goedkoop
@@ -45,6 +47,57 @@ public class App {
         Collections.sort(linkedList, (o1, o2) -> compare(o2, o1));
         print(linkedList);
 
+        System.out.println("max ----------------");
+
+        // Collections and Arrays
+        // .max()/min()
+        // .binarySearch
+
+        Integer max = Collections.max(getallen);
+        System.out.println(max);
+
+        Person[] people1 = {new Person("A", 30), new Person("B", 10), new Person("C", 0)};
+        List<Person> people = Arrays.asList(people1);
+        Person maxByAge = Collections.max(people);
+        System.out.println(maxByAge);
+
+        // Comparator<Person> nameComparator = (o1, o2) -> o1.getName().compareTo(o2.getName());
+        // new Comparator<Person>() {
+        //     @Override public int compare(Person o1, Person o2) {
+        //         return o1.getName().compareTo(o2.getName()); // single return statement in body
+        //     }
+        // };
+
+        // Person maxByName = Collections.max(people, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+
+        Person maxByName = Collections.max(people, comparing(Person::getName));
+        Person minByName = Collections.min(people, comparing(Person::getName));
+        System.out.println(maxByName);
+        System.out.println(minByName);
+
+        int i = Collections.binarySearch(getallen, 3, Integer::compareTo);
+        System.out.println(i);
+
+        // Arrays
+        // .asList
+        // .toString
+        // .equals
+        // .copyOf  copyOfRange
+
+        System.out.println("Arrays ---------------------");
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+        Integer[] integers1 = integers.toArray(new Integer[0]);
+        Integer[] integers2 = {1, 2, 3, 4, 5};
+        String s = Arrays.toString(integers1);
+        System.out.println(s);
+        System.out.println(integers1);
+        System.out.println(integers1.toString());
+        System.out.println(Arrays.equals(integers1, integers2));
+
+        Integer[] integers3 = Arrays.copyOf(integers1, integers1.length);
+        Integer[] integers4 = Arrays.copyOfRange(integers1, integers1.length - 2, integers1.length);
+        System.out.println(Arrays.toString(integers4));
+
         Set<Integer> getallenSet = new TreeSet<>((o1, o2) -> compare(o2, o1));
         getallenSet.add(9);
         getallenSet.add(6);
@@ -73,9 +126,40 @@ public class App {
 
         for (Person person : personSet) {
             if (person.getName().equalsIgnoreCase("BRAM")) {
-                System.out.println("gevonden");
+                System.out.println("gevonden " + person);
             }
         }
+
+        System.out.println("STREAMS ------------------------------------");
+
+        // Streams demo
+        personSet.stream()
+                .filter(p -> p.getAge() > 20)
+                .map(p -> p.getName())
+                .sorted()
+                .limit(3)
+                .forEach(p -> System.out.println(p));
+
+        System.out.println();
+
+        personSet.stream()
+                .map(p -> p.getName())
+                .filter(n -> n.equalsIgnoreCase("BRAM"))
+                .findFirst()
+                .ifPresent(p -> System.out.println("gevonden: " + p));
+
+        // max van getallenSet
+        int max1 = getallenSet.stream().mapToInt(Integer::intValue).max().orElse(0);
+
+        // sorteer getallenSet en maak er een list van
+        List<Integer> collect = getallenSet.stream().sorted().collect(toList());
+
+        // sorteer personSet en ...
+        Person reduce = personSet.stream()
+                .sorted(comparing(Person::getName))
+                .reduce(new Person("", 0), (p, p2) -> new Person(p.getName() + p2.getName(), p.getAge() + p2.getAge()));
+
+        System.out.println(reduce);
 
         Map<String, Person> personMap = new HashMap<>();
         add(bram, personMap);
@@ -89,7 +173,7 @@ public class App {
     }
 
     private static Person person(String name, int age) {
-        return Person.builder().name(name).age(age).build();
+        return new Person(name, age);
     }
 
     private static void add(Person p, Map<String, Person> personMap) {
