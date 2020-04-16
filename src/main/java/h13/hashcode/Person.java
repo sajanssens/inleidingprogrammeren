@@ -1,14 +1,11 @@
 package h13.hashcode;
 
 import java.util.Objects;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Person implements Comparable<Person> {
 
     String name;
     Integer age;
-
-    private ReentrantLock lock = new ReentrantLock();
 
     public Person(String name, int age) {
         this.name = name;
