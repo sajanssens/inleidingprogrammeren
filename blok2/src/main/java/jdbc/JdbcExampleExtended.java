@@ -15,7 +15,8 @@ public class JdbcExampleExtended {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbcdemo", "root", "root");
              Statement statement = connection.createStatement()) {
             deleteSomeRows(connection, randomAge);
-            insertSomeRows(connection, randomAge);
+            insertSomeRows(statement, randomAge);
+            insertSomeRowsTransactional(connection, randomAge, statement);
             showSomeData(statement);
             showSomeDatabaseMetadata(connection);
         } catch (SQLException e) {
@@ -26,7 +27,7 @@ public class JdbcExampleExtended {
     private void showSomeData(Statement statement) throws SQLException {
         ResultSet result = statement.executeQuery("SELECT * FROM PERSON");
 
-        showSomeResultsetMetadata(result);
+        showSomeResultSetMetadata(result);
         List<Person> persons = showRows(result);
         showPersons(persons);
 
@@ -43,11 +44,29 @@ public class JdbcExampleExtended {
         preparedStatement.close();
     }
 
-    private void insertSomeRows(Connection connection, int randomAge) throws SQLException {
-        Statement statement = connection.createStatement();
+    private void insertSomeRows(Statement statement, int randomAge) throws SQLException {
         int i = statement.executeUpdate("insert into PERSON VALUES ('Bram', " + randomAge + ")");
-        System.out.println("Rows inserted: " + i);
-        statement.close();
+        System.out.println("Rows i inserted: " + i);
+    }
+
+    private void insertSomeRowsTransactional(Connection connection, int randomAge, Statement statement) throws SQLException {
+        try {
+            connection.setAutoCommit(false);
+
+            int i = statement.executeUpdate("insert into PERSON VALUES ('Bram', " + randomAge + ")");
+            System.out.println("Rows i inserted: " + i);
+
+            // typo in query: abort transaction via catch --> rollback
+            int j = statement.executeUpdate("ins ert into PERSON VALUES ('Bram2', " + randomAge + ")");
+            System.out.println("Rows j inserted: " + j);
+
+            connection.commit(); // if everything was ok.
+        } catch (SQLException e) {
+            System.err.println("Transaction aborted. Something in the database went wrong: " + e.getMessage());
+            connection.rollback(); // if something went wrong
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     private void showSomeDatabaseMetadata(Connection connection) throws SQLException {
@@ -56,7 +75,7 @@ public class JdbcExampleExtended {
         System.out.println("DatabaseProductName: " + databaseProductName);
     }
 
-    private void showSomeResultsetMetadata(ResultSet result) throws SQLException {
+    private void showSomeResultSetMetadata(ResultSet result) throws SQLException {
         ResultSetMetaData metaData = result.getMetaData();
         String catalogName = metaData.getCatalogName(1);
         String tableName = metaData.getTableName(1);

@@ -16,8 +16,4 @@ public class Person {
                 ", age=" + age +
                 '}';
     }
-
-    public String getName() {
-        return name;
-    }
 }
