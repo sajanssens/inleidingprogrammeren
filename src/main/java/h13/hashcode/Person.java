@@ -1,15 +1,25 @@
 package h13.hashcode;
 
 import java.util.Objects;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Person implements Comparable<Person> {
 
     String name;
-    int age;
+    Integer age;
+
+    private ReentrantLock lock = new ReentrantLock();
 
     public Person(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    // To fix lost updates, use synchronized:
+    public /*synchronized */void birthday() {
+        int temp = age + 1;
+        // more operations ...
+        age = temp;
     }
 
     @Override public boolean equals(Object o) {
@@ -22,9 +32,8 @@ public class Person implements Comparable<Person> {
 
     @Override public int hashCode() {
         // return super.hashCode(); // returns the 'address' of this object; unique for each instance
-        return 1; // every person has the same hashcode: functionally ok, but no performance benefits in hash tables since every person wil be stored under the same key
-        // return Objects.hash(name, age); // unique hashcode for each name/age combination; if more specific than equals, two equal persons can get different has codes; that's not good, since they will be added to a hashset though they are equal...
-
+        // return 1; // every person has the same hashcode: functionally ok, but no performance benefits in hash tables since every person wil be stored under the same key
+        return Objects.hash(name, age); // unique hashcode for each name/age combination; if more specific than equals, two equal persons can get different has codes; that's not good, since they will be added to a hashset though they are equal...
     }
 
     @Override
