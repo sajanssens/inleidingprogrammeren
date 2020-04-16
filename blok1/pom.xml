@@ -4,15 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>nl.bramjanssens</groupId>
     <artifactId>blok1</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
-	<parent>
-		<groupId>nl.bramjanssens</groupId>
-		<artifactId>bd2020-parent</artifactId>
-		<version>1.0</version>
-	</parent>
+    <parent>
+        <groupId>nl.bramjanssens</groupId>
+        <artifactId>bd2020-parent</artifactId>
+        <version>1.0</version>
+    </parent>
 
     <dependencies>
         <dependency>
@@ -23,8 +21,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.6.0</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
