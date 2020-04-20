@@ -1,5 +1,7 @@
 package jdbc;
 
+import jdbc.domain.Person;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

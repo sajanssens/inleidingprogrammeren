@@ -1,12 +1,18 @@
-package jdbc;
+package jdbc.domain;
 
 public class Person {
-    private final String name;
-    private final int age;
+    public final String name;
+    public final int age;
+    public final Gender gender;
 
     public Person(String name, int age) {
+        this(name, age, Gender.Onbekend);
+    }
+
+    public Person(String name, int age, Gender gender) {
         this.name = name;
         this.age = age;
+        this.gender = gender;
     }
 
     @Override
@@ -14,6 +20,7 @@ public class Person {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
+                ", gender=" + gender +
                 '}';
     }
 }

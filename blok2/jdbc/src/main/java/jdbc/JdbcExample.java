@@ -15,14 +15,19 @@ public class JdbcExample {
         Statement statement = connection.createStatement();
 
         // 4
-        ResultSet result = statement.executeQuery("SELECT * FROM PERSON");
+        ResultSet result = statement.executeQuery(
+                "select person.name, person.age, gender.name\n" +
+                        "from person\n" +
+                        "    join gender on person.genderId = gender.id\n" +
+                        "where age > 0");
 
         // 5
         while (result.next()) {
             String name = result.getString("name");
+            String gendername = result.getString("gender.name");
             int age = result.getInt("age");
 
-            System.out.println(name + " - " + age);
+            System.out.println(name + ", " + age + " jaar is een " + gendername);
         }
 
         // 6
