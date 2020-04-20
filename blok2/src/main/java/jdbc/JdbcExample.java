@@ -1,9 +1,9 @@
-package com.example;
+package jdbc;
 
 import java.sql.*;
 
 public class JdbcExample {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException {
 
         // 1
         // Class.forName("com.mysql.cj.jdbc.Driver"); // not necessary since Java 6; now via the SPI
