@@ -11,7 +11,7 @@ public class JdbcExampleExtended {
 
     public static void main(String[] args) { new JdbcExampleExtended().start(); }
 
-    private void start() {
+    void start() {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbcdemo", "root", "root");
              Statement statement = connection.createStatement()) {
             deleteSomeRows(connection, randomAge);
@@ -37,7 +37,7 @@ public class JdbcExampleExtended {
     }
 
     private void deleteSomeRows(Connection connection, int randomAge) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("delete from person where age>?");
+        PreparedStatement preparedStatement = connection.prepareStatement("delete from person where age > ?");
         preparedStatement.setInt(1, randomAge);
         int deleted = preparedStatement.executeUpdate();
         System.out.println("Rows deleted: " + deleted);
