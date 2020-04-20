@@ -17,6 +17,8 @@
 	<modules>
 		<module>blok1</module>
 		<module>blok2</module>
+		<module>jdbc</module>
+		<module>jpa</module>
 	</modules>
 
 	<dependencyManagement>
