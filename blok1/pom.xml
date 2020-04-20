@@ -8,7 +8,7 @@
 
     <parent>
         <groupId>nl.bramjanssens</groupId>
-        <artifactId>bd2020-live-code-parent</artifactId>
+        <artifactId>bd2020-live-code</artifactId>
         <version>1.0</version>
     </parent>
 
