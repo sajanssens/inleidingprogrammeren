@@ -23,8 +23,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="x.y" level="ALL" additivity="true">
-            <AppenderRef ref="file"/>
+        <Logger name="com.example" level="ALL" additivity="true">
             <AppenderRef ref="rollingFile"/>
         </Logger>
         <Root level="info">
