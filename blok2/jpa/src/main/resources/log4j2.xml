@@ -22,12 +22,13 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.example" level="ALL" additivity="true">
+        <!--<Logger name="com.example" level="ALL" additivity="true">
             <AppenderRef ref="rollingFile"/>
-        </Logger>
-        <Logger name="org.hibernate" level="INFO" additivity="true">
-            <AppenderRef ref="console"/>
-        </Logger>
+        </Logger>-->
+
+        <Logger name="org.hibernate" level="INFO"/>
+        <!--<Logger name="org.hibernate.type.descriptor.sql" level="trace"/>-->
+
         <Root level="DEBUG">
             <AppenderRef ref="console"/>
         </Root>
