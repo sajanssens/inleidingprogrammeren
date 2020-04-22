@@ -37,7 +37,6 @@ public class PersonDao {
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-        em.close();
     }
 
 }

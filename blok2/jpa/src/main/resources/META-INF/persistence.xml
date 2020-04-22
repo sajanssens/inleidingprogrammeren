@@ -6,15 +6,15 @@
              version="2.2">
 
     <persistence-unit name="MySQL">
-        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-        <validation-mode>CALLBACK</validation-mode>
+        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> not necessary; automatically picked up by classpath -->
+        <!--<validation-mode>CALLBACK</validation-mode> instead use javax.persistence... property -->
         <properties>
             <property name="javax.persistence.validation.mode" value="AUTO"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jdbcdemo"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="root"/>
-            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
         </properties>
