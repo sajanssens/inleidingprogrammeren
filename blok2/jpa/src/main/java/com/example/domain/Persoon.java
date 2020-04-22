@@ -9,7 +9,7 @@ import static com.example.domain.Values.EMAIL;
 
 @Entity
 @Table(name = "Person")
-public class Persoon {
+public class Persoon { // POJO
 
     @Id @GeneratedValue
     private int id;
@@ -51,4 +51,6 @@ public class Persoon {
     public void setEmailaddress(String emailaddress) {
         this.emailaddress = emailaddress;
     }
+
+    public void setNaam(String naam) { this.naam = naam; }
 }
