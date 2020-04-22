@@ -2,16 +2,16 @@ package com.example.dao;
 
 import com.example.domain.Persoon;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+import static com.example.util.Util.logger;
+
 public class PersonDao {
 
-    Logger log = LoggerFactory.getLogger(PersonDao.class);
-
+    private final Logger log = logger(getClass());
     private final EntityManager em;
 
     public PersonDao(EntityManager em) {
@@ -26,18 +26,23 @@ public class PersonDao {
 
     public Persoon select(int id) {
         log.debug("Finding person with id " + id);
-        return em.find(Persoon.class, id);
+        return em.find(Persoon.class, id); // 1
     }
 
     public List<Persoon> selectAll() {
         TypedQuery<Persoon> query = em.createQuery("select p from Persoon p", Persoon.class);
-        return query.getResultList();
+        return query.getResultList(); // 2
     }
 
     public List<Persoon> selectAll(String name) {
         TypedQuery<Persoon> query = em.createQuery("select p from Persoon p where p.naam = :firstarg", Persoon.class);
         query.setParameter("firstarg", name);
-        return query.getResultList();
+        return query.getResultList(); // 3
+    }
+
+    public List<Persoon> selectAllNamed() {
+        TypedQuery<Persoon> findAll = em.createNamedQuery("findAll", Persoon.class);
+        return findAll.getResultList();
     }
 
     public void delete(int id) {
@@ -59,12 +64,10 @@ public class PersonDao {
         return p;
     }
 
-    // public List<Person> getPersonsWithGender() {
-    //
-    // }
-
-    // public List<Person> getPersonsByName(String name) throws SQLException {
-    //
-    // }
-
+    public Persoon update(Persoon p) {
+        em.getTransaction().begin();
+        Persoon merged = em.merge(p);
+        em.getTransaction().commit();
+        return merged;
+    }
 }

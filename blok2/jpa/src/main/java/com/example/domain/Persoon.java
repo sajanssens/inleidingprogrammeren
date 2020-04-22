@@ -9,6 +9,7 @@ import static com.example.domain.Values.EMAIL;
 
 @Entity
 @Table(name = "Person")
+@NamedQuery(name = "findAll", query = "select p from Persoon p")
 public class Persoon { // POJO
 
     @Id @GeneratedValue
