@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+        </Console>
+
+        <!-- append is false for test purposes so the logfiles are automatically overwritten. Don't use this on production. -->
+        <RollingFile name="fileLogger" append="false" fileName="target/error.log" filePattern="target/error-%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- Rolling once a day -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- Rolling based on size -->
+                <SizeBasedTriggeringPolicy size="2 KB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="examples.logging" additivity="true">
+            <appender-ref ref="fileLogger" level="debug"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -26,8 +26,8 @@ public class App {
                 String catalogName = metaData.getCatalogName(1);
                 System.out.println(catalogName);
             }
-        // } catch (ClassNotFoundException e) {
-        //     System.err.println("JDBC driver not found; exiting... Details: \n" + e.getMessage());
+            // } catch (ClassNotFoundException e) {
+            //     System.err.println("JDBC driver not found; exiting... Details: \n" + e.getMessage());
         } catch (SQLException e) {
             System.err.println("SQLException occured; exiting... Details: \n" + e.getMessage());
         }

@@ -20,8 +20,4 @@ public class Person {
         }
     }
 
-    // overrule lombok's equals:
-    public boolean equals(Object o) {
-        return name.equals(((Person) o).getName());
-    }
 }
