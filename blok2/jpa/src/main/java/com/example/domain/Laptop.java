@@ -2,7 +2,6 @@ package com.example.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Laptop extends AbstractEntity {
@@ -16,4 +15,5 @@ public class Laptop extends AbstractEntity {
 
     public Laptop(String b) { brand = b; }
 
+    public void setOwner(Employee owner) { this.owner = owner; }
 }

@@ -23,7 +23,7 @@ public class Employee extends AbstractEntity { // POJO
 
     @Column(unique = true)
     @Email // @Pattern(regexp = EMAIL)
-    private String emailaddress;
+    private String emailAddress;
 
     @ManyToOne(cascade = MERGE)
     private Department bossOfDepartment; // owning side
@@ -52,13 +52,13 @@ public class Employee extends AbstractEntity { // POJO
                 '}';
     }
 
-    public void setEmailaddress(String emailaddress) {
-        this.emailaddress = emailaddress;
+    public void setEmailAddress(String email) {
+        this.emailAddress = email;
     }
 
     public void setNaam(String naam) { this.naam = naam; }
 
     public void setBossOfDepartment(Department bossOfDepartment) { this.bossOfDepartment = bossOfDepartment; }
 
-    public void addLaptop(Laptop lp) { this.laptops.add(lp); }
+    public void addLaptop(Laptop lp) { this.laptops.add(lp); lp.setOwner(this); }
 }
