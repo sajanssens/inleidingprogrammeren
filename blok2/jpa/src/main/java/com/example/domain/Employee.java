@@ -1,20 +1,17 @@
 package com.example.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.example.domain.Values.EMAIL;
 import static javax.persistence.CascadeType.MERGE;
 
 @Entity
-@Table(name = "Person")
 @NamedQuery(name = "findAll", query = "select e from Employee e")
-public class Employee { // POJO
-
-    @Id @GeneratedValue
-    private int id;
+public class Employee extends AbstractEntity { // POJO
 
     @NotNull
     @Size(max = 100)
@@ -25,11 +22,14 @@ public class Employee { // POJO
     private Gender gender;
 
     @Column(unique = true)
-    @Pattern(regexp = EMAIL)
+    @Email // @Pattern(regexp = EMAIL)
     private String emailaddress;
 
     @ManyToOne(cascade = MERGE)
-    private Department bossOfDepartment;
+    private Department bossOfDepartment; // owning side
+
+    @OneToMany(cascade = MERGE, mappedBy = "owner") // passive side, bidirectioneel
+    private List<Laptop> laptops = new ArrayList<>();
 
     public Employee() { }
 
@@ -59,4 +59,6 @@ public class Employee { // POJO
     public void setNaam(String naam) { this.naam = naam; }
 
     public void setBossOfDepartment(Department bossOfDepartment) { this.bossOfDepartment = bossOfDepartment; }
+
+    public void addLaptop(Laptop lp) { this.laptops.add(lp); }
 }

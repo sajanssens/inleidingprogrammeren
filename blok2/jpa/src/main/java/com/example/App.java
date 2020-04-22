@@ -3,6 +3,7 @@ package com.example;
 import com.example.dao.EmployeeDao;
 import com.example.domain.Department;
 import com.example.domain.Employee;
+import com.example.domain.Laptop;
 import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,6 @@ public class App {
     }
 
     private void start() {
-        log.error("TEST");
         log("Starting app...");
 
         EmployeeDao employeeDao = new EmployeeDao(em);
@@ -55,6 +55,9 @@ public class App {
         employeeDao.selectAllNamed().forEach(this::log);
 
         nino.setBossOfDepartment(new Department("Nergens"));
+        updated = employeeDao.update(nino);
+
+        nino.addLaptop(new Laptop("DELL"));
         updated = employeeDao.update(nino);
     }
 

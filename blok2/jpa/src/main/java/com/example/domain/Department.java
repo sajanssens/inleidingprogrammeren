@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Department {
+public class Department extends AbstractEntity {
 
     @Id @GeneratedValue
     private int id;
