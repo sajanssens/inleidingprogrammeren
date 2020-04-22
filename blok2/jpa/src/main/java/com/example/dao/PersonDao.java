@@ -16,6 +16,12 @@ public class PersonDao {
         this.em = em;
     }
 
+    public void insert(Persoon p) {
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
+    }
+
     public Persoon getPerson(int id) {
         log.debug("Finding person with id " + id);
         return em.find(Persoon.class, id);
@@ -32,11 +38,5 @@ public class PersonDao {
     // public List<Person> getPersonsByName(String name) throws SQLException {
     //
     // }
-
-    public void insert(Persoon p) {
-        em.getTransaction().begin();
-        em.persist(p);
-        em.getTransaction().commit();
-    }
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 public class App {
 
-    private Logger log = LoggerFactory.getLogger(App.class);
+    private Logger log = LoggerFactory.getLogger(getClass());
 
     public static void main(String[] args) {
         new App().start();
@@ -19,7 +19,7 @@ public class App {
     private void start() {
         log.error("TEST"); // serr
 
-        log.debug("Starting app...");
+        log.info("Starting app...");
         EntityManager em = Persistence.createEntityManagerFactory("MySQL").createEntityManager();
 
         PersonDao dao = new PersonDao(em);
