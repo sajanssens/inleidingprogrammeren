@@ -6,11 +6,12 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import static com.example.domain.Values.EMAIL;
+import static javax.persistence.CascadeType.MERGE;
 
 @Entity
 @Table(name = "Person")
-@NamedQuery(name = "findAll", query = "select p from Persoon p")
-public class Persoon { // POJO
+@NamedQuery(name = "findAll", query = "select e from Employee e")
+public class Employee { // POJO
 
     @Id @GeneratedValue
     private int id;
@@ -27,14 +28,16 @@ public class Persoon { // POJO
     @Pattern(regexp = EMAIL)
     private String emailaddress;
 
-    public Persoon() {
-    }
+    @ManyToOne(cascade = MERGE)
+    private Department bossOfDepartment;
 
-    public Persoon(String naam, int age) {
+    public Employee() { }
+
+    public Employee(String naam, int age) {
         this(naam, age, Gender.UNKNOWN);
     }
 
-    public Persoon(String naam, int age, Gender gender) {
+    public Employee(String naam, int age, Gender gender) {
         this.naam = naam;
         this.age = age;
         this.gender = gender;
@@ -54,4 +57,6 @@ public class Persoon { // POJO
     }
 
     public void setNaam(String naam) { this.naam = naam; }
+
+    public void setBossOfDepartment(Department bossOfDepartment) { this.bossOfDepartment = bossOfDepartment; }
 }

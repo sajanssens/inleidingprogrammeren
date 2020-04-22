@@ -1,7 +1,8 @@
 package com.example;
 
-import com.example.dao.PersonDao;
-import com.example.domain.Persoon;
+import com.example.dao.EmployeeDao;
+import com.example.domain.Department;
+import com.example.domain.Employee;
 import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -22,39 +23,42 @@ public class App {
     }
 
     private void start() {
-        log.error("TEST"); // serr
+        log.error("TEST");
         log("Starting app...");
 
-        PersonDao dao = new PersonDao(em);
-        Persoon bram = new Persoon("Bram", 42);
+        EmployeeDao employeeDao = new EmployeeDao(em);
+        Employee bram = new Employee("Bram", 42);
         // bram.setEmailaddress("bram@test.com");
 
-        dao.insert(bram);
+        employeeDao.insert(bram);
 
-        Persoon persoon = dao.select(1);
-        log(persoon);
+        Employee employee = employeeDao.select(1);
+        log(employee);
 
-        dao.selectAll().forEach(this::log);
+        employeeDao.selectAll().forEach(this::log);
 
-        List<Persoon> michaels = dao.selectAll("Michael");
+        List<Employee> michaels = employeeDao.selectAll("Michael");
         michaels.forEach(this::log);
 
-        dao.delete(3);
-        dao.selectAll().forEach(this::log);
+        employeeDao.delete(3);
+        employeeDao.selectAll().forEach(this::log);
 
-        Persoon p2 = dao.updateFirstname(1, "Gert Jan");
-        dao.selectAll().forEach(this::log);
+        Employee nino = employeeDao.updateFirstname(1, "Gert Jan");
+        employeeDao.selectAll().forEach(this::log);
 
-        p2.setNaam("Nino");
-        Persoon updated = dao.update(p2);
+        nino.setNaam("Nino");
+        Employee updated = employeeDao.update(nino);
 
-        log(isManaged(p2));
+        log(isManaged(nino));
         log(isManaged(updated));
 
-        dao.selectAllNamed().forEach(this::log);
+        employeeDao.selectAllNamed().forEach(this::log);
+
+        nino.setBossOfDepartment(new Department("Nergens"));
+        updated = employeeDao.update(nino);
     }
 
     private void log(Object o) { log.info(o + ""); }
 
-    private boolean isManaged(Persoon p) { return em.contains(p); }
+    private boolean isManaged(Employee p) { return em.contains(p); }
 }

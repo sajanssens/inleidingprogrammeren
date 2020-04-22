@@ -6,10 +6,8 @@
         </Console>
 
         <!-- append is false for test purposes so the logfiles are automatically overwritten. Don't use this on production. -->
-        <RollingFile name="fileLogger" append="false" fileName="logs/error.log" filePattern="logs/error-%d{yyyy-MM-dd}.%i.log">
-            <PatternLayout>
-                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
-            </PatternLayout>
+        <RollingFile name="rollingFile" append="false" fileName="logs/error.log" filePattern="logs/error-%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
             <Policies>
                 <!-- Rolling once a day -->
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
@@ -17,14 +15,17 @@
                 <SizeBasedTriggeringPolicy size="2 KB"/>
             </Policies>
         </RollingFile>
+        <File name="file" fileName="logs/app-log.log">
+            <PatternLayout>
+                <Pattern pattern="%d{MM.dd.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            </PatternLayout>
+        </File>
     </Appenders>
 
     <Loggers>
-        <Logger name="file_logger" additivity="true" level="error">
-            <AppenderRef ref="fileLogger"/>
-        </Logger>
-        <Logger name="file_logger2" additivity="true" level="debug">
-            <AppenderRef ref="fileLogger"/>
+        <Logger name="x.y" level="ALL" additivity="true">
+            <AppenderRef ref="file"/>
+            <AppenderRef ref="rollingFile"/>
         </Logger>
         <Root level="info">
             <AppenderRef ref="console"/>
