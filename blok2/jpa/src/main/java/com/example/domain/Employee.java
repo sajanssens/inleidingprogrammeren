@@ -1,14 +1,13 @@
 package com.example.domain;
 
+import com.example.util.BooleanTFConverter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.EnumType.STRING;
@@ -35,10 +34,12 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
     private String emailAddress;
 
     @Temporal(value = DATE)
-    private Date date = new Date();
+    private Date dateOfBirth = new Date();
 
     // Better: use LocalDate or LocalDateTime
-    private LocalDate dateOfBirth = LocalDate.of(1979, 8, 22);
+    // Will be converted to time by LocalDateTimeAttributeConverter
+    // @Convert(converter = LocalDateTimeAttributeConverter.class)
+    private LocalDateTime timeOfBirth = LocalDateTime.of(1979, 8, 22, 0, 1, 2, 3);
 
     // CLOB Character large object
     // BLOB Binary large object
@@ -48,6 +49,12 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
 
     @Lob
     private byte[] image;
+
+    @Convert(converter = BooleanTFConverter.class)
+    private boolean hasDriversLicence = true;
+
+    @Embedded
+    private Address address;
 
     // Relations ***********************************************************
 
@@ -72,7 +79,10 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
     private List<Laptop> laptops = new ArrayList<>(); // this is the passive side
 
     @ManyToMany(cascade = ALL) // bidirectional
-    private Set<Department> worksAtDepartments;
+    @JoinTable(name = "departmentemployees",
+            joinColumns = @JoinColumn(name = "employeeId"),
+            inverseJoinColumns = @JoinColumn(name = "departmentId"))
+    private Set<Department> worksAtDepartments = new HashSet<>();
 
     // *********************************************************************
 
