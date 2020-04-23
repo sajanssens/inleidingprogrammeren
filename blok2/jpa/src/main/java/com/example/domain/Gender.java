@@ -1,5 +1,6 @@
 package com.example.domain;
 
 public enum Gender {
-    Man, Vrouw, UNKNOWN
+    UNKNOWN, Man, Vrouw
+    // 0     1    2
 }

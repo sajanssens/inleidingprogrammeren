@@ -1,9 +1,7 @@
 package com.example;
 
 import com.example.dao.EmployeeDao;
-import com.example.domain.Department;
-import com.example.domain.Employee;
-import com.example.domain.Laptop;
+import com.example.domain.*;
 import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -57,6 +55,18 @@ public class App {
         nino.addLaptop(new Laptop("DELL"));
         updated = employeeDao.update(nino);
 
+        updated.setLeaseCar(new Car("Skoda"));
+        employeeDao.update(updated);
+
+        updated.setParkingSpace(new ParkingSpace(123));
+        employeeDao.update(updated);
+
+        updated.addPhone(new Phone("+316123456789"));
+        employeeDao.update(updated);
+
+        updated.addDepartment(new Department("Douane"));
+        employeeDao.update(updated);
+
         log(isManaged(updated));
         em.clear();
         log(isManaged(updated));
@@ -66,4 +76,5 @@ public class App {
     private void log(Object o) { log.info(o + ""); }
 
     private boolean isManaged(Employee p) { return em.contains(p); }
+
 }
