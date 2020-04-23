@@ -27,6 +27,7 @@
         </Logger>-->
 
         <Logger name="org.hibernate" level="INFO"/>
+
         <!--<Logger name="org.hibernate.type.descriptor.sql" level="trace"/>-->
 
         <Root level="DEBUG">

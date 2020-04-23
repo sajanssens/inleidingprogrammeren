@@ -8,8 +8,8 @@ public class Laptop extends AbstractEntity {
 
     private String brand;
 
-    @ManyToOne // bidirectioneel
-    private Employee owner;
+    @ManyToOne              // bidirectional
+    private Employee owner; // this is the owning side
 
     public Laptop() { }
 

@@ -49,9 +49,6 @@ public class App {
         nino.setNaam("Nino");
         Employee updated = employeeDao.update(nino);
 
-        log(isManaged(nino));
-        log(isManaged(updated));
-
         employeeDao.selectAllNamed().forEach(this::log);
 
         nino.setBossOfDepartment(new Department("Nergens"));
@@ -59,6 +56,11 @@ public class App {
 
         nino.addLaptop(new Laptop("DELL"));
         updated = employeeDao.update(nino);
+
+        log(isManaged(updated));
+        em.clear();
+        log(isManaged(updated));
+        em.close();
     }
 
     private void log(Object o) { log.info(o + ""); }

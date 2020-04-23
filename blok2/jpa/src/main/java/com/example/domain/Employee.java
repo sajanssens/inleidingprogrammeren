@@ -11,25 +11,42 @@ import static javax.persistence.CascadeType.MERGE;
 
 @Entity
 @NamedQuery(name = "findAll", query = "select e from Employee e")
-public class Employee extends AbstractEntity { // POJO
+public class Employee extends AbstractEntity { // POJO, "Java bean"
 
-    @NotNull
-    @Size(max = 100)
-    @Column(name = "name")
+    @NotNull               // Bean validation API
+    @Size(max = 100)       // Bean validation API
+    @Column(name = "name") // JPA
     private String naam;
 
     private int age;
     private Gender gender;
 
     @Column(unique = true)
-    @Email // @Pattern(regexp = EMAIL)
+    @Email // @Pattern(regexp = EMAIL) // Bean validation API
     private String emailAddress;
 
-    @ManyToOne(cascade = MERGE)
+    // Relations ***********************************************************
+
+    // ----------------- Single Valued relationships
+
+    // @OneToOne  // unidirectional
+
+    @ManyToOne(cascade = MERGE)          // unidirectional
+    @JoinColumn(name = "departmentId")
     private Department bossOfDepartment; // owning side
 
-    @OneToMany(cascade = MERGE, mappedBy = "owner") // passive side, bidirectioneel
-    private List<Laptop> laptops = new ArrayList<>();
+    // @ManyToOne // bidirectional
+
+    // ----------------- Collection valued relationships
+
+    // @OneToMany  unidi
+
+    @OneToMany(cascade = MERGE, mappedBy = "owner")   // bidirectional
+    private List<Laptop> laptops = new ArrayList<>(); // this is the passive side
+
+    // @ManyToMany //bidirectional
+
+    // *********************************************************************
 
     public Employee() { }
 
@@ -43,7 +60,8 @@ public class Employee extends AbstractEntity { // POJO
         this.gender = gender;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "Person{" +
                 "id=" + id +
                 ", name='" + naam + '\'' +
@@ -60,5 +78,8 @@ public class Employee extends AbstractEntity { // POJO
 
     public void setBossOfDepartment(Department bossOfDepartment) { this.bossOfDepartment = bossOfDepartment; }
 
-    public void addLaptop(Laptop lp) { this.laptops.add(lp); lp.setOwner(this); }
+    public void addLaptop(Laptop lp) {
+        this.laptops.add(lp); // this --> zet iets
+        lp.setOwner(this);    // iets --> zet this
+    }
 }
