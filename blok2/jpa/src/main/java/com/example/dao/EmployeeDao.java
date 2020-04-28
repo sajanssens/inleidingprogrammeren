@@ -17,9 +17,9 @@ public class EmployeeDao {
     private final Logger log = logger(getClass());
     private EntityManager em;
 
-    public EmployeeDao(EntityManager em) {
-        this.em = em;
-    }
+    public EmployeeDao() { }
+
+    public EmployeeDao(EntityManager em) { this.em = em; }
 
     public void insert(Employee p) {
         em.getTransaction().begin();

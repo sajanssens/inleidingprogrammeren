@@ -21,7 +21,7 @@ class EmployeeDaoTest {
     @Mock EntityTransaction entityTransactionMock;
 
     @InjectMocks
-    EmployeeDao dao = new EmployeeDao(emMock);
+    EmployeeDao dao = new EmployeeDao();
 
     @BeforeEach
     void setUp() {
