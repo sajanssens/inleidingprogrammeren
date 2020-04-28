@@ -70,6 +70,9 @@ public class App {
 
         employeeDao.findEmployeeDepartments().forEach(this::log);
 
+        List<Employee> ninos = employeeDao.findUsingCriteriaAPI("Nino", "");
+        ninos.forEach(this::log);
+
         log(isManaged(updated));
         em.clear();
         log(isManaged(updated));
