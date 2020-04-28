@@ -12,9 +12,11 @@ import java.util.*;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 import static javax.persistence.TemporalType.DATE;
 
 @Entity
+@Inheritance(strategy = TABLE_PER_CLASS)
 @NamedQuery(name = "findAll", query = "select e from Employee e")
 public class Employee extends AbstractEntity { // POJO, "Java bean"
 
