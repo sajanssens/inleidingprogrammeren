@@ -5,17 +5,17 @@ import com.example.domain.*;
 import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import java.util.List;
 
 import static com.example.util.Util.logger;
+import static com.example.util.Util.mysql;
 
 public class App {
 
     private final Logger log = logger(getClass());
 
     // application managed persistence context
-    private EntityManager em = Persistence.createEntityManagerFactory("MySQL").createEntityManager();
+    private EntityManager em = mysql();
 
     public static void main(String[] args) {
         new App().start();
@@ -65,7 +65,10 @@ public class App {
         employeeDao.update(updated);
 
         updated.addDepartment(new Department("Douane"));
+        updated.addDepartment(new Department("Toeslagen"));
         employeeDao.update(updated);
+
+        employeeDao.findEmployeeDepartments().forEach(this::log);
 
         log(isManaged(updated));
         em.clear();

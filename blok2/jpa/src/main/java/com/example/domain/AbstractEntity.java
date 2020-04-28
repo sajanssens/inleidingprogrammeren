@@ -7,5 +7,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractEntity {
     @Id @GeneratedValue
-    protected int id;
+    protected Long id;
+
+    public Long getId() { return id; }
 }
