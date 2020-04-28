@@ -25,11 +25,14 @@ public class EmployeeDao {
         em.getTransaction().begin();
         em.persist(p); // in persistence context
         em.getTransaction().commit();
+        em.detach(p);
     }
 
-    public Employee select(int id) {
+    public Employee select(long id) {
         log.debug("Finding Employee with id " + id);
-        return em.find(Employee.class, id); // 1
+        Employee employee = em.find(Employee.class, id);
+        em.detach(employee);
+        return employee; // 1
     }
 
     public List<Employee> selectAll() {
@@ -74,11 +77,12 @@ public class EmployeeDao {
         return merged;
     }
 
-    public List<Employee> findEmployees() {
+    public List<Employee> findEmployees(boolean shouldFetch) {
+        String fetch = shouldFetch ? "FETCH" : "";
         return em.createQuery(
-                "SELECT emp " +
+                "SELECT DISTINCT emp " +
                         "FROM Employee emp " +
-                        "JOIN emp.worksAtDepartments", Employee.class)
+                        "JOIN " + fetch + " emp.phones", Employee.class)
                 .getResultList();
     }
 
@@ -99,9 +103,9 @@ public class EmployeeDao {
         Root<Employee> emp = q.from(Employee.class);
 
         q.select(emp).distinct(true)
-                .where(cb.and(
-                        cb.equal(emp.get("name"), name),
-                        cb.equal(emp.get("email"), email)
+                .where(cb.or(
+                        cb.equal(emp.get("naam"), name),
+                        cb.equal(emp.get("emailAddress"), email)
                         )
                 );
 

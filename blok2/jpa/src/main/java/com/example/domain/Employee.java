@@ -70,8 +70,8 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
 
     // ----------------- Collection valued relationships (..ToMany)
 
-    @OneToMany(cascade = {PERSIST, MERGE})  // unidirectional: additional table emp_phone is created
-    private List<Phone> phones = new ArrayList<>();
+    @OneToMany(cascade = {PERSIST, MERGE}, fetch = LAZY)  // unidirectional: additional table emp_phone is created
+    private final List<Phone> phones = new ArrayList<>();
 
     @OneToMany(cascade = MERGE, mappedBy = "owner")   // bidirectional
     private List<Laptop> laptops = new ArrayList<>(); // this is the passive side
@@ -134,4 +134,6 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
         this.worksAtDepartments.add(d);
         d.add(this); // this is the owning side, so we make it responsible for managing the (BiDi) relationship.
     }
+
+    public List<Phone> getPhones() { return phones; }
 }

@@ -7,8 +7,7 @@ public class Phone extends AbstractEntity {
 
     private String number;
 
-    public Phone() {
-    }
+    public Phone() { }
 
     public Phone(String number) {
         this.number = number;
