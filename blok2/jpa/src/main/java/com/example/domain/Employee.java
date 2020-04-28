@@ -41,13 +41,11 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
     // @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime timeOfBirth = LocalDateTime.of(1979, 8, 22, 0, 1, 2, 3);
 
-    // CLOB Character large object
-    // BLOB Binary large object
-    @Lob
+    @Lob // CLOB Character large object
     @Basic(fetch = LAZY)
     private String resume;
 
-    @Lob
+    @Lob // BLOB Binary large object
     private byte[] image;
 
     @Convert(converter = BooleanTFConverter.class)
@@ -78,7 +76,7 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
     @OneToMany(cascade = MERGE, mappedBy = "owner")   // bidirectional
     private List<Laptop> laptops = new ArrayList<>(); // this is the passive side
 
-    @ManyToMany(cascade = ALL) // bidirectional
+    @ManyToMany(cascade = ALL) // bidirectional; "owner"
     @JoinTable(name = "departmentemployees",
             joinColumns = @JoinColumn(name = "employeeId"),
             inverseJoinColumns = @JoinColumn(name = "departmentId"))

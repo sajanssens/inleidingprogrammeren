@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 import static com.example.util.Util.logger;
@@ -12,7 +15,7 @@ import static com.example.util.Util.logger;
 public class EmployeeDao {
 
     private final Logger log = logger(getClass());
-    private final EntityManager em;
+    private EntityManager em;
 
     public EmployeeDao(EntityManager em) {
         this.em = em;
@@ -70,4 +73,39 @@ public class EmployeeDao {
         em.getTransaction().commit();
         return merged;
     }
+
+    public List<Employee> findEmployees() {
+        return em.createQuery(
+                "SELECT emp " +
+                        "FROM Employee emp " +
+                        "JOIN emp.worksAtDepartments", Employee.class)
+                .getResultList();
+    }
+
+    public List<Tuple> findEmployeeDepartments() {
+        return em.createQuery(
+                "SELECT new com.example.dao.Tuple(emp.naam, dep.name) " +
+                        "FROM Employee emp " +
+                        "JOIN emp.worksAtDepartments dep", Tuple.class)
+                .getResultList();
+    }
+
+    // Criteria API ---------
+
+    public List<Employee> findUsingCriteriaAPI(String name, String email) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Employee> q = cb.createQuery(Employee.class);
+
+        Root<Employee> emp = q.from(Employee.class);
+
+        q.select(emp).distinct(true)
+                .where(cb.and(
+                        cb.equal(emp.get("name"), name),
+                        cb.equal(emp.get("email"), email)
+                        )
+                );
+
+        return em.createQuery(q).getResultList();
+    }
+
 }
