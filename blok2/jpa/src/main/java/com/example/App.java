@@ -75,6 +75,10 @@ public class App {
         List<Employee> ninos = employeeDao.findUsingCriteriaAPI("Nino", "");
         ninos.forEach(this::log);
 
+        TemporaryEmployee temporaryEmployee = new TemporaryEmployee("Tempie", 56, 5);
+        employeeDao.insert(temporaryEmployee);
+        employeeDao.selectAll().forEach(this::log); // includes sub classes
+
         log(isManaged(updated));
         em.clear();
         log(isManaged(updated));
