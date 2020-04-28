@@ -99,14 +99,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
-                <configuration>
-                    <skip>${skipUnitTests}</skip>
-                </configuration>
-            </plugin>
-
             <!-- Make sure integration test classes end with 'IT' -->
             <!-- Only integration tests: mvn integration-test -DskipUnitTests-->
             <plugin>
