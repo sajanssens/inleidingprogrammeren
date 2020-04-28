@@ -35,10 +35,12 @@ public class App {
 
         employeeDao.selectAll().forEach(this::log);
 
-        List<Employee> michaels = employeeDao.selectAll("Michael");
-        michaels.forEach(this::log);
+        List<Employee> brams = employeeDao.selectAll("Bram");
+        brams.forEach(this::log);
 
-        employeeDao.delete(3);
+        Employee p = new Employee("", 1);
+        employeeDao.insert(p);
+        employeeDao.delete(p.getId());
         employeeDao.selectAll().forEach(this::log);
 
         Employee nino = employeeDao.updateFirstname(1, "Gert Jan");
@@ -49,11 +51,11 @@ public class App {
 
         employeeDao.selectAllNamed().forEach(this::log);
 
-        nino.setBossOfDepartment(new Department("Nergens"));
-        updated = employeeDao.update(nino);
+        updated.setBossOfDepartment(new Department("Nergens"));
+        updated = employeeDao.update(updated);
 
-        nino.addLaptop(new Laptop("DELL"));
-        updated = employeeDao.update(nino);
+        updated.addLaptop(new Laptop("DELL"));
+        updated = employeeDao.update(updated);
 
         updated.setLeaseCar(new Car("Skoda"));
         employeeDao.update(updated);

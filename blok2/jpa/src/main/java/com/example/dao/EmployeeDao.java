@@ -31,7 +31,7 @@ public class EmployeeDao {
     public Employee select(long id) {
         log.debug("Finding Employee with id " + id);
         Employee employee = em.find(Employee.class, id);
-        em.detach(employee);
+        if (employee != null) em.detach(employee);
         return employee; // 1
     }
 
@@ -51,8 +51,8 @@ public class EmployeeDao {
         return findAll.getResultList();
     }
 
-    public void delete(int id) {
-        Employee select = select(id);
+    public void delete(Long id) {
+        Employee select = em.find(Employee.class, id);
         if (select != null) {
             em.getTransaction().begin();
             em.remove(select);
