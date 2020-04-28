@@ -5,6 +5,7 @@ import h11.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class GenericsDemo {
 
     // Generic Types

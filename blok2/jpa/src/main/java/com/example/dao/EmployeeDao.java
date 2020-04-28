@@ -77,8 +77,8 @@ public class EmployeeDao {
         return merged;
     }
 
-    public List<Employee> findEmployees(boolean shouldFetch) {
-        String fetch = shouldFetch ? "FETCH" : "";
+    public List<Employee> findEmployees(boolean eager) {
+        String fetch = eager ? "FETCH" : "";
         return em.createQuery(
                 "SELECT DISTINCT emp " +
                         "FROM Employee emp " +

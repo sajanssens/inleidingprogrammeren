@@ -39,6 +39,11 @@ class EmployeeDaoIT {
             log(employee);
             employee.getPhones().forEach(p -> log(p.getNumber()));
         }
+
+        for (Employee employee : dao.findEmployees(true)) {
+            log(employee);
+            employee.getPhones().forEach(p -> log(p.getNumber()));
+        }
     }
 
     @Test
