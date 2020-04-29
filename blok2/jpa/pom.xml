@@ -95,6 +95,16 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
         </dependency>
+
+        <!-- CDI: ******************************************** -->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <!-- See for versions: https://weld.cdi-spec.org/documentation/#9 -->
+            <version>2.4.8.Final</version>       <!--contains CDI1.2-->
+            <!--<version>3.1.2.Final</version>--><!--contains CDI2.0-->
+        </dependency>
+
     </dependencies>
 
     <build>

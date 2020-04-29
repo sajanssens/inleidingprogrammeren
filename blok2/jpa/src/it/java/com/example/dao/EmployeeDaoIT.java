@@ -6,15 +6,18 @@ import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
-import static com.example.util.Util.h2;
-import static com.example.util.Util.logger;
+import javax.inject.Inject;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EmployeeDaoIT {
 
-    private final Logger log = logger(getClass());
-    private final EmployeeDao dao = new EmployeeDao(h2());
+    @Inject
+    private Logger log;
+
+    @Inject
+    private EmployeeDao dao;
 
     @Test
     void whenEmployeeIsInsertedItGetsAnId() {

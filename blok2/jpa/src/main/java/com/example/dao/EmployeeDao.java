@@ -3,6 +3,8 @@ package com.example.dao;
 import com.example.domain.Employee;
 import org.slf4j.Logger;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,11 +12,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-import static com.example.util.Util.logger;
-
 public class EmployeeDao {
 
-    private final Logger log = logger(getClass());
+    @Inject
+    private Logger log;
+
+    @Inject
+    @Named("mysql")
     private EntityManager em;
 
     public EmployeeDao() { }
