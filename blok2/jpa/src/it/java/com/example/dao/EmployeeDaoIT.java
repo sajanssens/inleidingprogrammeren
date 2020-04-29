@@ -23,7 +23,7 @@ class EmployeeDaoIT {
     }
 
     @Test
-    void whenEmployeesAreFoundTheirPhonesAreLazilyLoaded() {
+    void whenEmployeesAreQueriedTheirPhonesAreLazilyLoaded() {
         Employee a = new Employee("A", 1);
         a.addPhone(new Phone("1"));
         a.addPhone(new Phone("2"));
