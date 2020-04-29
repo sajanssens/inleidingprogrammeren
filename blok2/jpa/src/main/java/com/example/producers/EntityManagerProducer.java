@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 public class EntityManagerProducer {
 
     @Produces
-    @Named("mysql") @Default
+    @Named("mysql")
     public static EntityManager mysql() {
         return Persistence.createEntityManagerFactory("MySQL").createEntityManager();
     }
