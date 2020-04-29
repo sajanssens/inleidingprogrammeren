@@ -5,9 +5,7 @@ import com.example.domain.Employee;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 public class App2 {
 
@@ -15,8 +13,7 @@ public class App2 {
     private Logger log;
 
     // application managed persistence context
-    @Inject
-    @Named("mysql")
+    @Inject /*@MySQL*/
     private EntityManager em;
 
     public static void main(String[] args) {

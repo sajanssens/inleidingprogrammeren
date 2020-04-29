@@ -1,8 +1,14 @@
 package com.example.dao;
 
+import com.example.App;
+import com.example.EntityManagerProducerAlt;
 import com.example.domain.Employee;
 import com.example.domain.Phone;
 import org.hibernate.LazyInitializationException;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.AddPackages;
+import org.jboss.weld.junit5.auto.EnableAlternatives;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
@@ -11,6 +17,10 @@ import javax.inject.Inject;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@EnableAutoWeld
+@AddPackages(App.class)
+@AddBeanClasses(EntityManagerProducerAlt.class)
+@EnableAlternatives(EntityManagerProducerAlt.class)
 class EmployeeDaoIT {
 
     @Inject

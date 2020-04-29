@@ -4,7 +4,6 @@ import com.example.domain.Employee;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,7 +17,6 @@ public class EmployeeDao {
     private Logger log;
 
     @Inject
-    @Named("mysql")
     private EntityManager em;
 
     public EmployeeDao() { }

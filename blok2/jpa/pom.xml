@@ -104,6 +104,12 @@
             <version>2.4.8.Final</version>       <!--contains CDI1.2-->
             <!--<version>3.1.2.Final</version>--><!--contains CDI2.0-->
         </dependency>
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-junit5</artifactId>
+            <version>2.0.1.Final</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

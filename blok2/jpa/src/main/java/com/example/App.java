@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.service.EmployeeService;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 

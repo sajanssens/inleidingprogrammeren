@@ -1,11 +1,11 @@
-package com.example;
+package com.example.service;
 
 import com.example.dao.EmployeeDao;
 import com.example.domain.*;
+import com.example.util.qualifiers.MySQL;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -15,8 +15,7 @@ public class EmployeeService {
     private Logger log;
 
     // application (weld) managed persistence context
-    @Inject
-    @Named("mysql")
+    @Inject /*@MySQL*/
     private EntityManager em;
 
     @Inject
