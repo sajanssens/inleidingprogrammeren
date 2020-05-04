@@ -71,7 +71,7 @@ class EmployeeDaoTest {
 
     @Test
     void selectAll() {
-        when(emMock.<Employee>createQuery(anyString(), any())).thenReturn(query);
+        when(emMock.createQuery(anyString(), eq(Employee.class))).thenReturn(query);
         when(query.getResultList()).thenReturn(employees);
 
         List<Employee> all = dao.selectAll();
