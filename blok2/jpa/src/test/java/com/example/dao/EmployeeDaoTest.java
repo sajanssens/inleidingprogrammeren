@@ -10,6 +10,9 @@ import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.isA;
@@ -60,5 +63,18 @@ class EmployeeDaoTest {
         verify(entityTransactionMock, never()).commit();
 
         assertThat(select).isEqualTo(mock);
+    }
+
+    @Mock TypedQuery<Employee> query;
+    @Mock Employee e;
+    List<Employee> employees = Arrays.asList(e, e, e);
+
+    @Test
+    void selectAll() {
+        when(emMock.<Employee>createQuery(anyString(), any())).thenReturn(query);
+        when(query.getResultList()).thenReturn(employees);
+
+        List<Employee> all = dao.selectAll();
+        assertThat(all.size()).isEqualTo(3);
     }
 }
