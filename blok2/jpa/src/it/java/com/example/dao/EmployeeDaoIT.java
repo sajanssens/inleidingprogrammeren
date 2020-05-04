@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -69,6 +70,20 @@ class EmployeeDaoIT {
         Employee e = dao.select(1);
 
         assertThrows(LazyInitializationException.class, () -> e.getPhones().get(0));
+    }
+
+    @Test
+    void findByPhone() {
+        Phone p1 = new Phone("1");
+        Phone p2 = new Phone("2");
+        Employee e = new Employee("B", 1);
+        e.addPhone(p1);
+        e.addPhone(p2);
+
+        dao.insert(e);
+
+        List<Employee> byPhone = dao.findByPhone(p1.getId());
+        assertThat(byPhone.get(0).getId()).isEqualTo(e.getId());
     }
 
     private void log(Object o) { log.info(o + ""); }

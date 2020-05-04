@@ -11,7 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class EmployeeDao {
+public class EmployeeDao implements IEmployeeDao {
 
     @Inject
     private Logger log;
@@ -39,12 +39,23 @@ public class EmployeeDao {
 
     public List<Employee> selectAll() {
         TypedQuery<Employee> query = em.createQuery("select p from Employee p", Employee.class);
+        TypedQuery<Integer> query2 = em.createQuery("", Integer.class);
         return query.getResultList(); // 2
     }
 
     public List<Employee> selectAll(String name) {
         TypedQuery<Employee> query = em.createQuery("select p from Employee p where p.naam = :firstarg", Employee.class);
         query.setParameter("firstarg", name);
+        return query.getResultList(); // 3
+    }
+
+    public List<Employee> findByPhone(long phoneId) {
+        TypedQuery<Employee> query = em.createQuery(
+                "SELECT p FROM Employee p " +
+                        "JOIN p.phones ps " +
+                        "WHERE ps.id = :phoneId",
+                Employee.class);
+        query.setParameter("phoneId", phoneId);
         return query.getResultList(); // 3
     }
 
@@ -81,6 +92,7 @@ public class EmployeeDao {
 
     public List<Employee> findEmployees(boolean eager) {
         String fetch = eager ? "FETCH" : "";
+
         return em.createQuery(
                 "SELECT DISTINCT emp " +
                         "FROM Employee emp " +

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dao.EmployeeDao;
+import com.example.dao.IEmployeeDao;
 import com.example.domain.*;
 import com.example.util.qualifiers.MySQL;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class EmployeeService {
     private EntityManager em;
 
     @Inject
-    private EmployeeDao employeeDao;
+    private IEmployeeDao employeeDao;
 
     public void start() {
         log("Starting app...");
