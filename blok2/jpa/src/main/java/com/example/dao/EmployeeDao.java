@@ -39,7 +39,11 @@ public class EmployeeDao implements IEmployeeDao {
 
     public List<Employee> selectAll() {
         TypedQuery<Employee> query = em.createQuery("select p from Employee p", Employee.class);
-        TypedQuery<Integer> query2 = em.createQuery("", Integer.class);
+        return query.getResultList(); // 2
+    }
+
+    public List<Employee> selectOnlyEmployees() {
+        TypedQuery<Employee> query = em.createQuery("select p from Employee p where type(e) = ", Employee.class);
         return query.getResultList(); // 2
     }
 
@@ -51,12 +55,13 @@ public class EmployeeDao implements IEmployeeDao {
 
     public List<Employee> findByPhone(long phoneId) {
         TypedQuery<Employee> query = em.createQuery(
-                "SELECT p FROM Employee p " +
+                "SELECT p " +
+                        "FROM Employee p " +
                         "JOIN p.phones ps " +
                         "WHERE ps.id = :phoneId",
                 Employee.class);
         query.setParameter("phoneId", phoneId);
-        return query.getResultList(); // 3
+        return query.getResultList(); // findBy on OneToMany (with join)
     }
 
     public List<Employee> selectAllNamed() {
