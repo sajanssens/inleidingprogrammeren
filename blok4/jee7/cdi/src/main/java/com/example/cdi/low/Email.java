@@ -7,8 +7,8 @@ import javax.inject.Named;
 
 import static com.example.cdi.util.Values.OK;
 
-@EM
-@Named("Email")
+// @EM
+// @Named("Email")
 public class Email implements Sendable {
 
     private String run() {

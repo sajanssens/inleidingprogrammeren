@@ -19,7 +19,6 @@
         <module>blok1</module>
         <module>blok2</module>
         <module>blok4</module>
-        <module>cdi</module>
     </modules>
 
     <dependencyManagement>

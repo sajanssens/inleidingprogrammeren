@@ -13,9 +13,7 @@ public class Sender {
     // 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
     private final List<Sendable> sendables = new ArrayList<>();
 
-    public Sender(Sendable... s) {
-        sendables.addAll(Arrays.asList(s));
-    }
+    public Sender(Sendable... s) { sendables.addAll(Arrays.asList(s)); }
 
     public void addSendable(Sendable s) {
         // Satisfies:

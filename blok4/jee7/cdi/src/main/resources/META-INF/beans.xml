@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans/>
+<beans>
+    <alternatives>
+        <class>com.example.cdi.low.Sms</class>
+    </alternatives>
+</beans>
