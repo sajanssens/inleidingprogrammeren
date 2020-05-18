@@ -13,7 +13,6 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.InheritanceType.SINGLE_TABLE;
-import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 import static javax.persistence.TemporalType.DATE;
 
 @Entity
@@ -139,4 +138,12 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
     }
 
     public List<Phone> getPhones() { return phones; }
+
+    // needed for JAXB
+
+    public String getNaam() { return naam; }
+
+    public int getAge() { return age; }
+
+    public Gender getGender() { return gender; }
 }

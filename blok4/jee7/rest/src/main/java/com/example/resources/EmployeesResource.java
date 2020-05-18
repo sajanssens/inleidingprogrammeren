@@ -4,18 +4,23 @@ import com.example.domain.Employee;
 import com.example.services.EmployeeService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import java.util.List;
 
 @Path("/employees")
-public class EmployeeResource {
+public class EmployeesResource {
 
     @Inject private EmployeeService employeeService;
 
     @GET
+    @Produces("application/json")
+    public List<Employee> getAll() {
+        return employeeService.get();
+    }
+
+    @GET
     @Path("{id}")
+    @Produces("application/json")
     public Employee get(@PathParam("id") long id) {
         return employeeService.get(id);
     }

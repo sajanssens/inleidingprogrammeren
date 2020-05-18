@@ -16,16 +16,18 @@ import static com.example.domain.Values.BRAM;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnableAutoWeld
-@AddBeanClasses({EmployeeResource.class, EmployeeService.class, EmployeeDao.class, EntityManagerProducerAlt.class, LoggerProducer.class})
+@AddBeanClasses({EmployeesResource.class, EmployeeService.class, EmployeeDao.class, EntityManagerProducerAlt.class, LoggerProducer.class})
 @EnableAlternatives(EntityManagerProducerAlt.class)
-class EmployeeResourceIT {
+class EmployeesResourceIT {
 
     @Inject
-    private EmployeeResource resource;
+    private EmployeesResource resource;
 
     @Test
     void whenEmployeeIsPostedAndGottenThePostedEmployeeIsReturned() {
         Employee posted = resource.post(BRAM);
+        assertThat(posted.getId()).isNotNull();
+
         Employee gotten = resource.get(posted.getId());
         assertThat(gotten).isEqualTo(posted);
     }
