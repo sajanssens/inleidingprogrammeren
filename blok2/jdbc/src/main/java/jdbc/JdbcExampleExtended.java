@@ -9,13 +9,15 @@ import java.util.StringJoiner;
 
 public class JdbcExampleExtended {
 
-    private static int randomAge = (int) (Math.random() * 100);
+    private static final int randomAge = (int) (Math.random() * 100);
 
     public static void main(String[] args) { new JdbcExampleExtended().start(); }
 
     void start() {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbcdemo", "root", "root");
              Statement statement = connection.createStatement()) {
+            statement.execute("drop table if exists person;");
+            statement.execute("create table person(name varchar(255) null, age int null);");
             deleteSomeRows(connection, randomAge);
             insertSomeRows(statement, randomAge);
             insertSomeRowsTransactional(connection, randomAge, statement);
@@ -27,7 +29,7 @@ public class JdbcExampleExtended {
     }
 
     private void showSomeData(Statement statement) throws SQLException {
-        ResultSet result = statement.executeQuery("SELECT * FROM PERSON");
+        ResultSet result = statement.executeQuery("SELECT * from person");
 
         showSomeResultSetMetadata(result);
         List<Person> persons = showRows(result);
@@ -47,7 +49,7 @@ public class JdbcExampleExtended {
     }
 
     private void insertSomeRows(Statement statement, int randomAge) throws SQLException {
-        int i = statement.executeUpdate("insert into PERSON VALUES ('Bram', " + randomAge + ")");
+        int i = statement.executeUpdate("insert into person(name, age) VALUES ('Bram', " + randomAge + ")");
         System.out.println("Rows i inserted: " + i);
     }
 
@@ -55,11 +57,11 @@ public class JdbcExampleExtended {
         try {
             connection.setAutoCommit(false);
 
-            int i = statement.executeUpdate("insert into PERSON VALUES ('Bram', " + randomAge + ")");
+            int i = statement.executeUpdate("insert into person VALUES ('Bram', " + randomAge + ")");
             System.out.println("Rows i inserted: " + i);
 
             // typo in query: abort transaction via catch --> rollback
-            int j = statement.executeUpdate("ins ert into PERSON VALUES ('Bram2', " + randomAge + ")");
+            int j = statement.executeUpdate("insert into person VALUES ('Bram2', " + randomAge + ")");
             System.out.println("Rows j inserted: " + j);
 
             connection.commit(); // if everything was ok.

@@ -11,10 +11,22 @@ import static jdbc.MyProperties.get;
 
 public class PersonDao {
 
+    public void createDatabase() throws SQLException {
+        try (Connection connection = DriverManager.getConnection(get("database.url"), get("database.user"), get("database.password"));
+             Statement statement = connection.createStatement()) {
+            statement.execute("drop table if exists person;");
+            statement.execute("drop table if exists gender;");
+            statement.execute("create table person(name varchar(255) null, age int null, genderId int null);");
+            statement.execute("create table gender(id int null, name varchar(255) null);");
+            statement.execute("insert into gender(id, name) values (1, 'Man')");
+            statement.execute("insert into gender(id, name) values (2, 'Vrouw')");
+        }
+    }
+
     public List<Person> getPersons() throws SQLException {
         try (Connection connection = DriverManager.getConnection(get("database.url"), get("database.user"), get("database.password"));
              Statement statement = connection.createStatement()) {
-            ResultSet result = statement.executeQuery("SELECT * FROM person");
+            ResultSet result = statement.executeQuery("SELECT * from person");
             return showRows(result);
         }
     }
@@ -34,7 +46,7 @@ public class PersonDao {
 
     public List<Person> getPersonsByName(String name) throws SQLException {
         try (Connection connection = DriverManager.getConnection(get("database.url"), get("database.user"), get("database.password"));
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM person where name LIKE ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * from person where name LIKE ?")) {
             statement.setString(1, name);
             ResultSet result = statement.executeQuery();
             return showRows(result);
@@ -43,7 +55,7 @@ public class PersonDao {
 
     public int insert(Person p) throws SQLException {
         try (Connection connection = DriverManager.getConnection(get("database.url"), get("database.user"), get("database.password"));
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO person(name, age, genderId) VALUES (?, ?,  ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT into person(name, age, genderId) VALUES (?, ?,  ?)")) {
             statement.setString(1, p.name);
             statement.setInt(2, p.age);
             statement.setInt(3, p.gender.ordinal() + 1);

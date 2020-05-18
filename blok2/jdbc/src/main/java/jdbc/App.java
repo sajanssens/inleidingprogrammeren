@@ -15,7 +15,7 @@ public class App {
             // loadDriver();
             try (Connection connection = createConnection()) {
                 Statement statement = createStatement(connection);
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM person");
+                ResultSet resultSet = statement.executeQuery("SELECT * from person");
                 while (resultSet.next()) {
                     String name = resultSet.getString("name");
                     int age = resultSet.getInt("age");

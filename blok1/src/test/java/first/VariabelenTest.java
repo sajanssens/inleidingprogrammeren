@@ -37,7 +37,7 @@ public class VariabelenTest {
         System.out.println(minValue);
 
         assertEquals(143, aantalReizigersInDeTrein);
-        assertEquals(35, reizigersPerBak);
+        assertEquals(27, reizigersPerBak);
         assertEquals(200_000_000_000L * aantalReizigersInDeTrein, aantalCoronaBeestjesPerTrein);
     }
 
