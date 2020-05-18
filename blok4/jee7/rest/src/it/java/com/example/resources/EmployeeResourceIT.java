@@ -24,7 +24,7 @@ class EmployeeResourceIT {
     private EmployeeResource resource;
 
     @Test
-    void whenGetByIdThenEmployeeIsReturned() {
+    void whenEmployeeIsPostedAndGottenThePostedEmployeeIsReturned() {
         Employee posted = resource.post(BRAM);
         Employee gotten = resource.get(posted.getId());
         assertThat(gotten).isEqualTo(posted);
