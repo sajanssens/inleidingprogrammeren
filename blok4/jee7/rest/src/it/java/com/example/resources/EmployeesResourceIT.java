@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
-import static com.example.domain.Values.BRAM;
+import static com.example.domain.EmployeeValues.BRAM;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnableAutoWeld

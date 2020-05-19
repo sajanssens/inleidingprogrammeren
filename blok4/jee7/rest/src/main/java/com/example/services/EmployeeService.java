@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.domain.Values.*;
+import static com.example.domain.EmployeeValues.*;
 
 public class EmployeeService {
 
