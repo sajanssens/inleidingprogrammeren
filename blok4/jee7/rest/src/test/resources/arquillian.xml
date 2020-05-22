@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+    http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+    <container qualifier="wlp" default="true">
+        <configuration>
+            <property name="wlpHome">target/liberty/wlp</property>
+            <!-- For debugging: activate property below, run the test (which suspends session), connect to remote debugger (IDEA debug configuration) (which resumes session) -->
+            <!--<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=128m
+                -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y
+            </property>-->
+        </configuration>
+    </container>
+
+</arquillian>

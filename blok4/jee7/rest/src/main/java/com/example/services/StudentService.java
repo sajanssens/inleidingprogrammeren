@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateful
+@Stateful/*(passivationCapable = false)*/
 public class StudentService implements Serializable {
 
     List<Student> students = new ArrayList<>();
