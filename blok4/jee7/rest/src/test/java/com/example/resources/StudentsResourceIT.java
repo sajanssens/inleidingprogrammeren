@@ -1,6 +1,8 @@
 package com.example.resources;
 
-import com.example.resources.StudentsResource;
+import com.example.App;
+import com.example.domain.Students;
+import com.example.services.StudentService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -15,7 +17,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Arquillian.class)
 public class StudentsResourceIT {
@@ -31,19 +34,23 @@ public class StudentsResourceIT {
 
     @Deployment
     public static Archive<?> createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
+        WebArchive archive = ShrinkWrap.create(WebArchive.class, "test.war")
+                .addClass(App.class) // dont forget!
+                .addPackage(Students.class.getPackage())
                 .addPackage(StudentsResource.class.getPackage())
-                ;
+                .addPackage(StudentService.class.getPackage());
+        System.out.println(archive.toString(true));
+        return archive;
     }
 
     @Test
-    public void getGreeterReturnsCorrectMessage() {
+    public void getStudentsReturnsStudents() {
         String message = ClientBuilder.newClient()
-                .target(studentsResource + "/greeter")
-                .request(MediaType.TEXT_PLAIN)
+                .target(studentsResource)
+                .request(MediaType.APPLICATION_JSON)
                 .get(String.class);
 
-        assertEquals("Goedemorgen in Utrecht.", message);
+        assertThat(message, containsString("{\"students\":["));
     }
 
 }

@@ -5,7 +5,13 @@
     http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
     <container qualifier="wlp" default="true">
         <configuration>
-            <property name="wlpHome">target/liberty/wlp</property>
+            <property name="serverName">defaultServer</property>
+            <property name="httpPort">9080</property>
+            <property name="wlpHome">C:\Java\wlp-webProfile8-19.0.0.7\wlp</property>
+
+
+            <!--<property name="wlpHome">target/liberty/wlp</property>-->
+
             <!-- For debugging: activate property below, run the test (which suspends session), connect to remote debugger (IDEA debug configuration) (which resumes session) -->
             <!--<property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=128m
                 -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y

@@ -3,12 +3,14 @@ package com.example.services;
 import com.example.dao.EmployeeDao;
 import com.example.domain.Employee;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.example.domain.EmployeeValues.*;
 
+@Stateless
 public class EmployeeService {
 
     @Inject private EmployeeDao dao;

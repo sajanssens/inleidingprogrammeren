@@ -33,8 +33,7 @@ class EmployeesResourceTest {
         verify(serviceMock).get(anyLong());
     }
 
-    @Test
-        // @Disabled
+    @Test // @Disabled
     void whenGetAllThenEmployeesAreReturned() {
         when(serviceMock.get()).thenReturn(Arrays.asList(employeeMock, employeeMock, employeeMock));
 

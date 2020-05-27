@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.List;
 
-@Path("/employees")
+// @Path("/employees")
 public class EmployeesResource {
 
     @Inject private EmployeeService employeeService;
