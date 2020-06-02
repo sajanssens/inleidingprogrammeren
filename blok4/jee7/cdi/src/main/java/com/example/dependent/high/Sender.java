@@ -1,6 +1,6 @@
 package com.example.dependent.high;
 
-// Dependency Inversion is one of the last principles we are going to look at. The principle states that:
+// The Dependency Inversion principle states that:
 // 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
 // 2. Abstractions should not depend on details. Details should depend on abstractions.
 
