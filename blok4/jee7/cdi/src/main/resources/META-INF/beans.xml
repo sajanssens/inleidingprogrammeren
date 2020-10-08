@@ -3,4 +3,6 @@
     <alternatives>
         <class>com.example.cdi.low.Sms</class>
     </alternatives>
+    <interceptors></interceptors>
+    <decorators></decorators>
 </beans>

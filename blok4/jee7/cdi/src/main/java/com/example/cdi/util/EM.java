@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
 
-@Qualifier
+@Qualifier // voor CDI
 @Retention(RetentionPolicy.RUNTIME)
 @Target({TYPE, METHOD, FIELD, PARAMETER})
 public @interface EM {}

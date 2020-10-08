@@ -4,7 +4,6 @@ import com.example.domain.Employee;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -43,26 +42,10 @@ public class EmployeeDao implements IEmployeeDao {
         return query.getResultList(); // 2
     }
 
-    public List<Employee> selectOnlyEmployees() {
-        TypedQuery<Employee> query = em.createQuery("select p from Employee p where type(e) = ", Employee.class);
-        return query.getResultList(); // 2
-    }
-
     public List<Employee> selectAll(String name) {
         TypedQuery<Employee> query = em.createQuery("select p from Employee p where p.naam = :firstarg", Employee.class);
         query.setParameter("firstarg", name);
         return query.getResultList(); // 3
-    }
-
-    public List<Employee> findByPhone(long phoneId) {
-        TypedQuery<Employee> query = em.createQuery(
-                "SELECT p " +
-                        "FROM Employee p " +
-                        "JOIN p.phones ps " +
-                        "WHERE ps.id = :phoneId",
-                Employee.class);
-        query.setParameter("phoneId", phoneId);
-        return query.getResultList(); // findBy on OneToMany (with join)
     }
 
     public List<Employee> selectAllNamed() {
@@ -96,6 +79,22 @@ public class EmployeeDao implements IEmployeeDao {
         return merged;
     }
 
+    public List<Employee> selectOnlyEmployees() {
+        TypedQuery<Employee> query = em.createQuery("select p from Employee p where type(p) = Employee", Employee.class);
+        return query.getResultList(); // 2
+    }
+
+    public List<Employee> findByPhone(long phoneId) {
+        TypedQuery<Employee> query = em.createQuery(
+                "SELECT p " +
+                        "FROM Employee p " +
+                        "JOIN p.phones ps " +
+                        "WHERE ps.id = :phoneId",
+                Employee.class);
+        query.setParameter("phoneId", phoneId);
+        return query.getResultList(); // findBy on OneToMany (with join)
+    }
+
     public List<Employee> findEmployees(boolean eager) {
         String fetch = eager ? "FETCH" : "";
 
@@ -125,8 +124,7 @@ public class EmployeeDao implements IEmployeeDao {
         q.select(emp).distinct(true)
                 .where(cb.or(
                         cb.equal(emp.get("naam"), name),
-                        cb.equal(emp.get("emailAddress"), email)
-                        )
+                        cb.equal(emp.get("emailAddress"), email))
                 );
 
         return em.createQuery(q).getResultList();

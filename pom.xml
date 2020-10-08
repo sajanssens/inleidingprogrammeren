@@ -211,8 +211,6 @@
                     <version>2.22.2</version>
                     <executions>
                         <execution>
-                            <id>run-integration-tests</id>
-                            <phase>integration-test</phase>
                             <goals>
                                 <goal>integration-test</goal>
                                 <goal>verify</goal>

@@ -24,7 +24,7 @@ public class EmployeeService {
         log("Starting app...");
 
         Employee bram = new Employee("Bram", 42);
-        // bram.setEmailaddress("bram@test.com");
+        // bram.setEmailAddress("bram@test.com");
 
         employeeDao.insert(bram);
 

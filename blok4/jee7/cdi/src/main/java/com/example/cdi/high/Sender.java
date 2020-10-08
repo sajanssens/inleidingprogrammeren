@@ -1,5 +1,6 @@
 package com.example.cdi.high;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.List;
 import static java.util.stream.Collectors.joining;
 
 // High level module
+@Dependent
 public class Sender {
 
     // Satisfies:
@@ -40,8 +42,8 @@ public class Sender {
     // Dependency Injection -----------------------------
 
     // 1. field injection
-    // @Inject @Named("Email")  /*@EM*/
-    Sendable sendable;
+    // @Inject @EM  /*@Named("Email")*/
+    private Sendable sendable;
 
     // 2. constructor injection
     @Inject
@@ -49,7 +51,7 @@ public class Sender {
 
     // 3. setter/property injection
     // @Inject
-    // public void setSendable(@EM Sendable s) { addSendable(s); }
+    public void setSendable(/*@EM*/ Sendable s) { addSendable(s); }
 
     public Sender(Sendable... s) { sendables.addAll(Arrays.asList(s)); }
 

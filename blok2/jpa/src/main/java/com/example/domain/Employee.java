@@ -105,6 +105,7 @@ public class Employee extends AbstractEntity { // POJO, "Java bean"
                 ", name='" + naam + '\'' +
                 ", age=" + age +
                 ", gender=" + gender +
+                ", emailAddress=" + emailAddress +
                 '}';
     }
 

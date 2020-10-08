@@ -98,7 +98,7 @@
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
 
-        <!-- use this when using java 9+ : -->
+        <!-- use this when com.sun classes not found : -->
         <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
@@ -136,17 +136,19 @@
         <plugins>
             <!-- Run IT-tests during mvn verify -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <!--
+                                <groupId>org.apache.maven.plugins</groupId>
+                -->
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--                <version>2.22.2</version>
+                                <executions>
+                                    <execution>
+                                        <goals>
+                                            <goal>integration-test</goal>
+                                            <goal>verify</goal>
+                                        </goals>
+                                    </execution>
+                                </executions>-->
             </plugin>
 
             <!-- Download WebSphere Liberty to target directory and start it -->

@@ -11,10 +11,17 @@ import com.example.dependent.low.Email;
 public class Sender2_IoC {
 
     // violation of 1.; hard to maintain and extend
-    private Email email;
+    private Email email; // DI via field injection
     private Sms sms;
 
+    // DI via ctor
+    // public Sender2_IoC(Email email, Sms sms) {
+    //     this.email = email;
+    //     this.sms = sms;
+    // }
+
     // Inversion of control: new is gone. Let someone else supply the object(s)
+    // DI via setter
     public void setEmail(Email email) {
         this.email = email;
     }
