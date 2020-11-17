@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <!--
+    The beans element can have one or more of each of the following children:
+        interceptors
+        decorators
+        alternatives
+    -->
+
+    <!--
+    <alternatives>
+            <class>com.example.EntityManagerProducerAlt2</class>
+    </alternatives>
+    -->
+
+</beans>
